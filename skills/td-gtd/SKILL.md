@@ -123,7 +123,7 @@ Never ask three questions in a row. If three would be needed, propose a default 
 |---|---|
 | List tasks in a saved filter (by name) | `td filter view "<filter name>" --json` |
 | List tasks in a project | `td task list --project "id:<project_id>" --json` |
-| List tasks in a project's section | `td task list --project "id:<project_id>" --section "id:<section_id>" --json` |
+| List tasks in a project's section | `td task list --project "id:<project_id>" --json`, then filter client-side by `section_id` (looked up in `section-ids.json`). `td task list` has no `--section` flag. |
 | Add a task (rich flags) | `td task add "<title>" --project "id:<id>" --section "id:<id>" --labels "deep_work" --due "tomorrow" --priority p2` |
 | Add a task (natural-language parsing) | `td task quickadd "<title> tomorrow p2 #Project @label"` |
 | Complete a task | `td task complete "id:<task_id>"` |

@@ -35,9 +35,10 @@ In **CLI mode**, run these in parallel (multiple Bash calls in one tool call):
 td filter view "🎯 Today" --json
 td filter view "📅 This week" --json
 td filter view "⏳ Waiting check" --json
-td task list --project "id:6gg3XRqxXPWPMwH7" --section "🔥 In Progress" --json
-td task list --project "id:6gg3XRqxXPWPMwH7" --section "This Week" --json
+td task list --project "id:6gg3XRqxXPWPMwH7" --json
 ```
+
+The last call pulls **all** LangRelay tasks. Then in working memory, split them by `section_id` to identify which are in `🔥 In Progress` vs `This Week`. Look up section IDs from the cached map at `~/dev/skills/todoist-skills/section-ids.json` (key path: `LangRelay.sections."🔥 In Progress"` and `LangRelay.sections."This Week"`). `td task list` has no `--section` flag, so client-side filtering is the only option.
 
 In **MCP mode**, perform equivalent calls. Warn the user upfront: "Pulling state in MCP mode — this takes ~15s."
 
@@ -117,7 +118,7 @@ Triggered when the user invokes `/td-morning` and the same message (or the next 
 1. Run the Prelude (still required — must detect runtime).
 2. Pull only:
    - `td filter view "🎯 Today" --json`
-   - `td task list --project "id:6gg3XRqxXPWPMwH7" --section "🔥 In Progress" --json` (LangRelay's in-progress section)
+   - `td task list --project "id:6gg3XRqxXPWPMwH7" --json` (all LangRelay tasks; client-side filter to `🔥 In Progress` section by `section_id` from `section-ids.json`)
 3. Show: `🎯 Today (N items): [...]. Proposed deep_work: <LangRelay task or "no LangRelay in-progress, pick one from This Week?">`.
 4. User confirms or rejects in one turn. If rejected, accept a one-line override ("do Selektable demo today instead"). No follow-up questions.
 5. Skill exits.
