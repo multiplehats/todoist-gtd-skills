@@ -21,7 +21,20 @@ A 2-3 minute ritual to lock in the day. Biases toward LangRelay for the deep_wor
 
 4. If MCP mode and unauthed → run the auth bootstrap from `_shared/environment.md`. If the user declines auth → halt.
 
-5. Once detection completes, you have a runtime and an operation→tool mapping. Proceed.
+5. **Check for a saved plan from `/td-plan`**: look for `~/.local/share/todoist-skills/plans/<today>.md` (where `<today>` is the local-time `YYYY-MM-DD` date). If it exists, Read it — its anchor, supporting cast, and time-blocks become the **draft** for today. The flow below confirms/adjusts the draft rather than building from scratch. If no plan file exists, proceed with the default flow unchanged.
+
+6. Once detection completes, you have a runtime and an operation→tool mapping. Proceed.
+
+## When a plan file exists (Prelude Step 5)
+
+If `/td-plan` saved a plan for today, the structure shifts:
+
+- **Default flow Step 3 (Triage)** still runs, but most items will already match the plan — quick confirmation.
+- **Default flow Step 4 (Lock the deep_work slot)** is replaced by: "Your plan anchor is **<anchor title>**. Confirm, or override?" If confirmed, skip the LangRelay candidate-picking ladder.
+- **Default flow Step 5 (Client commitments)** still runs in case anything new arrived overnight (e.g., a client emailed at 7am).
+- **Fast path** with a plan file: just show "Plan: <anchor>. Confirm to start?" — exit on one confirmation.
+
+If the plan file is for an earlier date (user planned tomorrow yesterday but didn't open until two days later), surface it: "Found a plan for <date>, two days ago. Use it as a starting point anyway, or skip?"
 
 ## Default flow
 

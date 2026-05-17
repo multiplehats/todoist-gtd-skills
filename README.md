@@ -5,7 +5,8 @@ A bundle of Claude skills wrapping a GTD + Kanban Todoist setup. Works in both C
 ## Skills
 
 - **`td-gtd`** — rules + system map + filter/label semantics. Read by the rituals; not a slash command.
-- **`/td-morning`** — start-of-day ritual (~2-3 min). Locks in the deep_work block, surfaces client commitments.
+- **`/td-plan`** — deep planning walk-through (~10-15 min). Defaults to planning tomorrow; accepts any day. Saves a plan file `/td-morning` reads.
+- **`/td-morning`** — start-of-day ritual (~2-3 min). Locks in the deep_work block, surfaces client commitments. Honors a saved plan from `/td-plan` if one exists for today.
 - **`/td-shutdown`** — end-of-day ritual (~2-3 min). Cleans the board, logs own/client time split to the journal.
 
 ## Install
@@ -17,19 +18,20 @@ A bundle of Claude skills wrapping a GTD + Kanban Todoist setup. Works in both C
 mkdir -p ~/.agents/skills ~/.claude/skills
 
 # 3. Symlink each skill from the bundle into ~/.agents/skills/
-for s in td-gtd td-morning td-shutdown; do
+for s in td-gtd td-plan td-morning td-shutdown; do
   ln -s ~/dev/skills/todoist-skills/skills/$s ~/.agents/skills/$s
 done
 
 # 4. Symlink each from ~/.agents/skills/ into ~/.claude/skills/ (relative paths)
 cd ~/.claude/skills
-for s in td-gtd td-morning td-shutdown; do
+for s in td-gtd td-plan td-morning td-shutdown; do
   ln -s ../../.agents/skills/$s $s
 done
 cd -
 
-# 5. Create user-state journal directory
+# 5. Create user-state directories
 mkdir -p ~/.local/share/todoist-skills/journal
+mkdir -p ~/.local/share/todoist-skills/plans
 ````
 
 ## Status
